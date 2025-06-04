@@ -1,4 +1,4 @@
-import os, json
+import os, json, datetime, random
 
 
 def init_profile(filename='byt_db.json'):
@@ -137,4 +137,47 @@ def edit_demon():
 
     save_data(profile_data)
 
+
+def show_demons():
+    """Show all existing demons"""
+
+    profile_data = get_data()
+
+    i = 1
+    for demon in profile_data['Demons']:
+
+        print(f'{i} -> {demon}')
+        i += 1
+
+def start_battle():
+    """Start battle with a demon"""
+
+    profile_data = get_data()
+    
+    demon_idx = find_demon(profile_data=profile_data)
+
+    battle_data = {}
+
+    battle_data['name'] = input('How this awesome or tragic battle will be known?: ')
+    battle_data['start_time'] = datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
+    battle_data['end_time'] = None
+    battle_data['result'] = 'started'
+
+    profile_data['Demons'][demon_idx]['battle_log'].append(battle_data)
+
+    print(f"\nStarted battle: {battle_data}\nIt will be remembered by ages!\n")
+
+    save_data(profile_data)
+
+
+def rand_demon():
+    """Show a random demon"""
+
+    profile_data = get_data()
+
+    n = len(profile_data['Demons'])
+
+    demon_idx = random.randrange(0, n)
+
+    print(f"Oh, no! I demon has crossed in your way!\n-> {profile_data['Demons'][demon_idx]}")
 
