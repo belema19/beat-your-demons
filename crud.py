@@ -1,4 +1,5 @@
 import os, json, datetime, random
+from logic import honor_points
 
 
 def init_profile(filename='byt_db.json'):
@@ -73,6 +74,13 @@ def create_demon():
 def find_demon(profile_data:dict) -> int | None:
     """Find a demon by its name"""
 
+    demons_list = []
+
+    for demon in profile_data['Demons']:
+        demons_list.append(demon['name'])
+
+    print(f"\nYour current demons are:\n\n-> {demons_list}")
+
     demon_name = input("\nWhat's the name of the demon?: ")
 
 
@@ -81,7 +89,7 @@ def find_demon(profile_data:dict) -> int | None:
         if demon['name'] == demon_name:
             return i
 
-    print(f"Demon not found: {demon_name}")
+    print(f"\nDemon not found: {demon_name}")
     return None
 
 
@@ -113,7 +121,7 @@ def edit_demon():
 
     while True:
 
-        cmd = input('What do you want to change? (name, level): ')
+        cmd = input('\nWhat do you want to change? (name, level): ')
 
         match cmd:
 
@@ -159,13 +167,21 @@ def start_battle():
     battle_data = {}
 
     battle_data['name'] = input('How this awesome or tragic battle will be known?: ')
-    battle_data['start_time'] = datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
+    battle_data['start_time'] = datetime.datetime.now().strftime("%Y/%m/%d, %H:%M:%S")
     battle_data['end_time'] = None
     battle_data['result'] = 'started'
 
-    profile_data['Demons'][demon_idx]['battle_log'].append(battle_data)
+    demon_battles = profile_data['Demons'][demon_idx]['battle_log']
+    
+    demon_battles.append(battle_data)
 
-    print(f"\nStarted battle: {battle_data}\nIt will be remembered by ages!\n")
+    print(f"\nStarted battle: {battle_data}\n\nIt will be remembered by ages!\n")
+
+    new_honor = honor_points(battle_log=demon_battles)
+
+    profile_data['Honor'] += new_honor
+
+    print(f"\nYour new honor is: {profile_data['Honor']}")
 
     save_data(profile_data)
 
@@ -179,5 +195,43 @@ def rand_demon():
 
     demon_idx = random.randrange(0, n)
 
-    print(f"Oh, no! I demon has crossed in your way!\n-> {profile_data['Demons'][demon_idx]}")
+    print(f"Oh, no! I demon has crossed in your way!\n\n-> {profile_data['Demons'][demon_idx]}")
 
+
+def update_battle():
+    """Update the state of a battle"""
+
+    profile_data = get_data()
+
+    demon_idx = find_demon(profile_data=profile_data)
+
+    demon_battles = profile_data['Demons'][demon_idx]['battle_log']
+
+    print(f'\nThis is your battle log:\n{demon_battles}')
+
+    battle_name = input("\nWhat's the name of your battle?: ")
+
+    battle_status = input("\nWhat's the new status of your battle?: (victory, surrended) ")
+
+    for battle in demon_battles:
+
+        if battle['name'] == battle_name:
+
+            battle['end_time'] = datetime.datetime.now().strftime("%Y/%m/%d, %H:%M:%S")
+            battle['result'] = battle_status
+
+            break
+
+        else:
+
+            print(f"Battle named: {battle_name}, not found")
+
+    print(f"\nBattle status updated successfully\n\n->{demon_battles}")
+
+    new_honor = honor_points(battle_log=demon_battles)
+
+    profile_data['Honor'] += new_honor
+
+    print(f"\nYour new honor is: {profile_data['Honor']}")
+
+    save_data(profile_data)

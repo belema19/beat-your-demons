@@ -1,7 +1,7 @@
 """BEAT YOUR DEMONS"""
 import os
 from crud import init_profile, create_demon, delete_demon,\
-edit_demon, show_demons, start_battle, rand_demon
+edit_demon, show_demons, start_battle, rand_demon, update_battle
 
 def main():
 
@@ -12,7 +12,7 @@ def main():
 
         print('\nWhat do you want to do?\n')
 
-        cmd = input(' -> (show, random, battle, create, delete, edit): ')
+        cmd = input(' -> (show, random, battle, update battle, create, delete, edit): ')
 
         match cmd:
 
@@ -24,6 +24,9 @@ def main():
 
             case 'battle':
                 start_battle()
+
+            case 'update battle':
+                update_battle()
 
             case 'create':
                 create_demon()
