@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Beat Your Demons</title>
+
+        <link rel="stylesheet" href="style.css">
+
+        <script type="module" defer src="script.js"></script>
+    </head>
+    <body>
+        <header>
+            <div id="main-title" class="container">
+                <h1>BEAT YOUR DEMONS</h1>
+            </div>
+        </header>
+
+        <main class="container">
+            <button type="button" id="create-btn" class="crud-btn">Invoke demons...</button>
+            <button type="button" id="show-btn" class="crud-btn">Watch your demons...</button>
+        </main>
+
+        <div id="invoke-demon-modal" class="modal-hidden modal-overlay">
+            <div class="modal-window">
+                <h3 id="modal-title">INVOKE A DEMON</h3>
+                <hr>
+
+                <div class="modal-body">
+                    <div class="modal-form">
+                        <input type="hidden" id="edit-index" value="0">
+
+                        <label for="demon-name">Demon Name</label>
+                        <input type="text" id="demon-name" name="name" placeholder="Ex: Building a web app" required>
+
+                        <label for="lore">Lore</label>
+                        <textarea id="lore" name="lore" rows="5" cols="33" placeholder="It was a dark and stormy night..."></textarea>
+
+                        <label for="circle">Circle</label>
+                        <input type="text" id="circle" name="circle" placeholder="Ex: Programming" required>
+
+                        <label for="last-battle">Last Battle</label>
+                        <input type="date" id="last-battle" name="lastBattle">
+                    </div>
+
+                <div class="modal-footer">
+                    <div>
+                        <button class="close-btn" type="button">Close</button>
+                        <button class="annihilate-btn" type="button">Destroy</button>
+                    </div>
+                    <div>
+                        <button class="battle-btn" type="button">Battle</button>
+                        <button class="invoke-btn" type="button">Confirm</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="watch-demons-modal" class="modal-hidden modal-overlay">
+            <div class="modal-window">
+                <h3>WATCH YOUR DEMONS</h3>
+                <hr>
+
+                <div class="modal-body">
+                    <div class="modal-form">
+                        <div class="search-box">
+                            <input id="search-input" type="text" placeholder="Search...">
+                        </div>
+
+                        <div class="results-box"></div>
+                    </div>
+                </div> 
+                    
+                <div class="modal-footer">
+                    <div>
+                        <button class="close-btn" type="button">Close</button>
+                        <button class="delete-all-btn" type="button">Wipe Up</button>
+                    </div>
+                    <div class="pagination">
+                        <button class="prev-btn" type="button">Prev</button>
+                        <p>Page: <span class="page"></span></p>
+                        <button class="next-btn" type="button">Next</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="watch-battles-modal" class="modal-hidden modal-overlay">
+            <div class="modal-window">
+                <h3>WATCH YOUR BATTLES</h3>
+                <hr>
+
+                <div class="modal-body">
+                    
+                    <div class="modal-form">
+
+                        <div class="search-box">
+                            <input id="search-battle" type="text" placeholder="Search...">
+                        </div>
+
+                        <div class="results-box"></div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <div>
+                        <button class="close-btn" type="button">Close</button>
+                        <button class="delete-all-btn" type="button">Wipe Up</button>
+                        <button class="register-btn" type="button">Register</button>
+                    </div>
+
+                    <div class="pagination">
+                        <button class="prev-btn" type="button">Prev</button>
+                        <p>Page: <span class="page"></span></p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="battle-demons-modal" class="modal-hidden modal-overlay">
+            <div class="modal-window">
+                <h3>BATTLE YOUR DEMONS</h3>
+                <hr>
+
+                <div class="modal-body">
+                    <div class="modal-form">
+                        <input id="edit-battle-index" value="0" type="hidden">
+                        <label for="battle-description">Description</label>
+                        <textarea id="battle-description" name="battle-description" rows="5" cols="33" placeholder="What you did or will do..."></textarea>
+
+                        <label for="battle-notes">Battle Notes</label>
+                        <textarea id="battle-notes" name="battle-notes" rows="5" cols="33" placeholder="How does it went..."></textarea>
+
+                        <label for="battle-date">Date</label>
+                        <input type="date" id="battle-date" name="battle-date">
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="close-btn" type="button">Close</button>
+                    <div>
+                        <button class="delete-btn" type="button">Delete</button>
+                        <button class="invoke-btn" type="button">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

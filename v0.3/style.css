@@ -1,0 +1,283 @@
+/* --- Base --- */
+:root {
+    --carbon-black: #222222;
+    --oxidized-iron: #b02e0c;
+    --lavender-blush: #f8e5ee;
+    --blue-violet: #7d28ec;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--carbon-black);
+}
+
+.container {
+    max-width: 1200px;
+    justify-self: center;
+}
+
+/* --- Sections --- */
+#main-title {
+    color: var(--oxidized-iron);
+    padding: 20px;
+}
+
+header {
+    box-shadow: 0px 10px 20px black;
+}
+
+main {
+    box-shadow: 0px 0px 20px black;
+    padding: 50px;
+    position: fixed;
+    top: 50%;
+    transform: translate(0%, -50%);
+}
+
+.crud-btn {
+    display: flex;
+    flex-direction: column;
+    background: none;
+    border: none;
+    width: 100%;
+    font-size: 1rem;
+    color: var(--lavender-blush);
+    padding: 10px;
+    cursor: crosshair;
+}
+
+.crud-btn:hover {
+    border: 1px solid var(--lavender-blush);
+}
+
+.crud-btn:focus {
+    color: var(--oxidized-iron);
+}
+
+/* --- Invoke A Demon --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-window {
+    background-color: #222222;
+    box-shadow: 0px 0px 30px black;
+    padding: 2rem;
+    max-width: 800px;
+    font-size: 1.2rem;
+}
+
+.modal-window h3,
+.modal-window hr {
+    margin-bottom: 10px;
+    font-size: 2rem;
+}
+
+.modal-window h3 {
+    color: var(--oxidized-iron);
+}
+
+.modal-window hr {
+    height: 1px;
+    background-color: var(--oxidized-iron);
+    border: none;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal-form label {
+    color: var(--lavender-blush);
+}
+
+.modal-form input,
+.modal-form textarea {
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: rgba(255, 255, 255, 0.5);
+    border: none;
+    border-radius: 10px;
+    cursor: text;
+}
+
+.modal-form textarea {
+    resize: none;
+}
+
+.modal-form input:hover {
+    color: var(--oxidized-iron);
+}
+
+.modal-form input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+.modal-form input::placeholder,
+.modal-form textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.modal-form input:hover::placeholder,
+.modal-form textarea:hover::placeholder {
+    color: var(--oxidized-iron);
+}
+
+.modal-form input:focus::placeholder,
+.modal-form textarea:focus::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.modal-form input:focus,
+.modal-form textarea:focus {
+    outline: 1px solid var(--oxidized-iron);
+}
+
+.modal-form input[type="date"]:focus {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.modal-footer button {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 5px;
+    font-weight: bold;
+    color: var(--oxidized-iron);
+    border: 1px solid var(--oxidized-iron);
+    border-radius: 5px;
+}
+
+.modal-footer button:hover {
+    color: var(--lavender-blush);
+    border: 1px solid var(--lavender-blush);
+}
+
+.modal-footer button:active {
+    color: var(--oxidized-iron);
+    border: 1px solid var(--oxidized-iron);
+}
+
+.modal-hidden {
+    display: none !important;
+}
+
+.search-box input {
+    width: 100%;
+}
+
+.results-box {
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: none;
+    border-radius: 10px;
+    max-height: 50vh;
+    width: 50vh;
+}
+
+#watch-demons-modal .modal-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+#watch-demons-modal h3 {
+    justify-self: center;
+}
+
+.pagination {
+    display: flex;
+}
+
+.pagination p {
+    margin: 0 10px;
+    padding: 8px;
+    font-size: 0.9rem;
+    align-content: center;
+    color: var(--oxidized-iron);
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--oxidized-iron);
+    border-radius: 10px;
+}
+
+.demon-item, .battle-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 3fr 1fr;
+    align-items: center;
+    gap: 15px;
+    background-color: var(--carbon-black);
+    border: none;
+    border-radius: 10px;
+    margin: 5px 0px;
+    padding: 8px;
+    color: var(--lavender-blush);
+    font-size: 1rem;
+}
+
+.battle-item {
+    grid-template-columns: 2fr 2fr 1fr;
+}
+
+.demon-item:hover,
+.demon-item:focus,
+.battle-item:hover,
+.battle-item:focus {
+    cursor: pointer;
+    color: var(--oxidized-iron);
+    border: 1px solid var(--oxidized-iron);
+    outline: var(--oxidized-iron);
+}
+
+.demon-field, .battle-field {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 5px 10px;
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.demon-name {
+    font-weight: bold;
+}
+
+.demon-circle {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.demon-lore {
+    flex-grow: 1;
+    font-style: italic;
+}
+
+.demon-date,
+.battle-date {
+    font-family: monospace;
+    color: rgba(255, 255, 255, 0.5);
+    min-width: fit-content;
+}
