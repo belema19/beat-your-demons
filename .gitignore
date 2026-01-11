@@ -1,0 +1,7 @@
+### IntelliJ IDEA ###
+.idea/
+*.iml
+java-cli/out/
+!java-cli/**/src/main/**/out/
+!java-cli/**/src/test/**/out/
+java/cli/.kotlin
