@@ -2,9 +2,9 @@ package com.beatyourdemons.ui;
 
 public class Display {
 
-    public static void showBanner() {
+    public static void showBanner(String banner) {
         System.out.println("==========================================");
-        System.out.println("           BEAT YOUR DEMONS v0.4          ");
+        System.out.format("          %s          ", banner);
         System.out.println("==========================================");
     }
 

@@ -6,17 +6,12 @@ package com.beatyourdemons.models;
  */
 public abstract class Entity {
 
-    private String name;
-    private int health;
-    private int maxHealth;
-    private int level;
+    protected String name;
+    protected int health;
+    protected int maxHealth;
+    protected int level;
 
-    public Entity(String name, int maxHealth) {
-        this.name = name;
-        this.maxHealth = maxHealth;
-        this.health = maxHealth;
-        this.level = 1;
-    }
+    protected Entity() {}
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
@@ -26,6 +21,9 @@ public abstract class Entity {
 
     public int getMaxHealth() { return maxHealth; }
     public void setMaxHealth(int maxHealth) { this.maxHealth = maxHealth; }
+
+    public int getLevel() { return level; }
+    public void setLevel(int level) { this.level = level; }
 
     @Override
     public String toString() {

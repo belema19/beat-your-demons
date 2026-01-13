@@ -2,48 +2,99 @@ package com.beatyourdemons.logic;
 
 import com.beatyourdemons.ui.*;
 import com.beatyourdemons.models.*;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class GameEngine {
 
-    private boolean isRunning = true;
+    private MenuState currentMenuState = MenuState.MAIN_MENU;
     private final InputHandler input = new InputHandler();
-
     private final List<Demon> demons = new ArrayList<>();
 
+    // Menus
+    private enum MenuState {
+        MAIN_MENU("BEAT YOUR DEMONS CLI",
+                new String[]{"Manage Your Demons", "Manage Your Battles", "Exit"}),
+        DEMON_CRUD("MANAGE YOUR DEMONS",
+                new String[]{"Main Menu", "Create", "Show", "Update", "Delete", "Exit"}),
+        BATTLE_CRUD("MANAGE YOUR BATTLES",
+                new String[]{"Main Menu", "Create", "Show", "Update", "Delete", "Exit"}),
+        EXIT("GOOD BYE", new String[]{});
+
+        private final String banner;
+        private final String[] options;
+
+        MenuState(String banner, String[] options) {
+            this.banner = banner;
+            this.options = options;
+        }
+
+        public String getBanner() { return banner; }
+        public String[] getOptions() { return options; }
+    }
+
     public void start() {
-        Display.showBanner();
+        Display.showBanner(currentMenuState.getBanner());
 
-        while(isRunning) {
-            String[] mainMenu = {"Create", "Show", "Update", "Delete", "Exit"};
-            Display.showMenu(mainMenu);
+        do {
+            renderCurrentMenu();
+        } while (currentMenuState != MenuState.EXIT );
 
-            int choice = input.readInt();
-            handleMainOptions(choice);
-
-        }
-
-        Display.log("Good bye.");
     }
 
-    private void handleMainOptions(int choice) {
-        switch (choice) {
-            case 1 -> createDemon();
-            case 2 -> showDemons();
-            case 3 -> updateDemon();
-            case 4 -> deleteDemon();
-            case 5 -> isRunning = false;
-            default -> Display.showError("Invalid option.");
+    public void renderCurrentMenu() {
+        Display.showBanner(currentMenuState.getBanner());
+        Display.showMenu(currentMenuState.getOptions());
+
+        int choice = input.readInt();
+
+        handleOptions(choice);
+    }
+
+    private void handleOptions(int choice) {
+        switch (currentMenuState) {
+            case MAIN_MENU -> {
+                switch (choice) {
+                    case 1 -> currentMenuState = MenuState.DEMON_CRUD;
+                    case 2 -> currentMenuState = MenuState.BATTLE_CRUD;
+                    case 3 -> currentMenuState = MenuState.EXIT;
+                    default -> Display.showError("Invalid option.");
+                }
+            }
+            case DEMON_CRUD -> {
+                switch (choice) {
+                    case 1 -> currentMenuState = MenuState.MAIN_MENU;
+                    case 2 -> createDemon();
+                    case 3 -> showDemons();
+                    case 4 -> updateDemon();
+                    case 5 -> deleteDemon();
+                    case 6 -> currentMenuState = MenuState.EXIT;
+                    default -> Display.showError("Invalid option.");
+                }
+            }
+            case BATTLE_CRUD -> {
+                switch (choice) {
+                    case 1 -> currentMenuState = MenuState.MAIN_MENU;
+                    case 2 -> createBattle();
+                    case 3 -> showBattles();
+                    case 4 -> updateBattle();
+                    case 5 -> deleteBattle();
+                    case 6 -> currentMenuState = MenuState.EXIT;
+                    default -> Display.showError("Invalid option.");
+                }
+            }
         }
     }
 
-    // --- Storage ---
+    // --- DEMON CRUD ---
     private void createDemon() {
         Display.log("Enter demon name: ");
         String name = input.readString();
 
-        Demon newDemon = new Demon(name, 100);
+        Demon newDemon = new Demon.Builder(name).build();
 
         demons.add(newDemon);
         Display.log("Demon created and saved successfully!");
@@ -57,7 +108,7 @@ public class GameEngine {
 
         Display.log("--- LIST OF DEMONS ---");
         for (int i = 0; i < demons.size(); i++) {
-           System.out.println((i + 1) + ". " + demons.get(i));
+            System.out.println((i + 1) + ". " + demons.get(i));
         }
     }
 
@@ -133,4 +184,14 @@ public class GameEngine {
         }
     }
 
-}
+    // --- BATTLE CRUD
+
+    private void createBattle() {}
+
+    private void showBattles() {}
+
+    private void updateBattle() {}
+
+    private void deleteBattle() {}
+
+    }
